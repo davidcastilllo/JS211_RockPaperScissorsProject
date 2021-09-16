@@ -60,3 +60,25 @@ if (typeof describe === 'function') {
   getPrompt();
 
 }
+
+
+// Heres a different way I wrote 
+
+let PlayGame = (Player1,PLayer2) => {
+  let words = ['rock', 'paper', 'scissors']
+  let P1 = words.indexOf(Player1.toLowerCase())
+  let P2 = words.indexOf(PLayer2.toLowerCase())
+  console.log('User1:' + words[P1] + '  User2:' + words[P2])
+  if (P1 === P2) {console.log('Tie!')}
+  else if (P1 === 0 & P2 === 2) {console.log('User1 Wins')}
+  else if (P1 === 1 & P2 === 0) {console.log('User1 Wins')}
+  else if (P1 === 2 & P2 === 1) {console.log('User1 Wins')}
+  else if (P2 === 0 & P1 === 2) {console.log('User2 Wins')}
+  else if (P2 === 1 & P1 === 0) {console.log('User2 Wins')}
+  else if (P2 === 2 & P1 === 1) {console.log('User2 Wins')}
+}
+
+PlayGame('rock','rock')
+PlayGame('rock','scissors')
+
+PlayGame('paper','scissors')
