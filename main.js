@@ -11,19 +11,29 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+
+// -What if the user inputs nothing?
+// -What if the user inputs anything other than a word?
+// -Brainstorm with your classmates to test for even more edge cases.
+
+
+
 // the function that will be called by the unit test below
 const rockPaperScissors = (hand1, hand2) => {
   let words = ['rock', 'paper', 'scissors']
-  let User1 = words.indexOf(hand1.trim().toLowerCase())
-  let User2 = words.indexOf(hand2.trim().toLowerCase())
-if (User1 === User2) {return "It's a tie!"}
+  let User1 = words.indexOf(hand1.toString().trim().toLowerCase())
+  let User2 = words.indexOf(hand2.toString().trim().toLowerCase())
+
+if (User1 === User2 && User1 != -1) {return "It's a tie!"}
 else if (User1 === 0 & User2 === 2) {return "Hand one wins!"}
 else if (User1 === 1 & User2 === 0) {return "Hand one wins!"}
 else if (User1 === 2 & User2 === 1) {return "Hand one wins!"}
 else if (User2 === 0 & User1 === 2) {return "Hand two wins!"}
 else if (User2 === 1 & User1 === 0) {return "Hand two wins!"}
 else if (User2 === 2 & User1 === 1) {return "Hand two wins!"}
+else if (User1 === -1 || User2 === -1) {return "Please input valid answer!"}
 }
+
 
 // the first function called in the program to get an input from the user
 // to run the function use the command: node main.js
@@ -54,10 +64,25 @@ if (typeof describe === 'function') {
       assert.equal(rockPaperScissors('paper', 'scissors'), "Hand two wins!");
       assert.equal(rockPaperScissors('rock', 'scissors'), "Hand one wins!");
     });
-    it('should scrub input to ensure lowercase with "trim"ed whitepace', () => {
-      assert.equal(rockPaperScissors('rOcK', ' paper '), "Hand two wins!");
+    it('should scrub input to ensure lowercase', () => {
+      assert.equal(rockPaperScissors('rOcK', 'paper'), "Hand two wins!");
       assert.equal(rockPaperScissors('Paper', 'SCISSORS'), "Hand two wins!");
-      assert.equal(rockPaperScissors('rock ', 'sCiSsOrs'), "Hand one wins!");
+      assert.equal(rockPaperScissors('rock', 'sCiSsOrs'), "Hand one wins!");
+    });
+    it('should trim any whitespace', () => {
+      assert.equal(rockPaperScissors('  rock', 'rock  '), "It's a tie!");
+      assert.equal(rockPaperScissors('paper       ', '  paper'), "It's a tie!");
+      assert.equal(rockPaperScissors('scissors  ', '    scissors'), "It's a tie!");
+    });
+    it('should give message if user inputs words that are not rock paper or scissors', () => {
+      assert.equal(rockPaperScissors('Hello', 'butt'), "Please input valid answer!");
+      assert.equal(rockPaperScissors('Wig', 'Hair'), "Please input valid answer!");
+      assert.equal(rockPaperScissors('Leg', 'arm'), "Please input valid answer!");
+    });
+    it('should detect if user inputs numbers', () => {
+      assert.equal(rockPaperScissors(1, 2), "Please input valid answer!");
+      assert.equal(rockPaperScissors(3, 1), "Please input valid answer!");
+      assert.equal(rockPaperScissors(4, 1), "Please input valid answer!");
     });
   });
 } else {
@@ -68,19 +93,18 @@ if (typeof describe === 'function') {
 }
 
 
-
 // let PlayGame = (Player1,PLayer2) => {
 //   let words = ['rock', 'paper', 'scissors']
 //   let P1 = words.indexOf(Player1.toLowerCase())
 //   let P2 = words.indexOf(PLayer2.toLowerCase())
 //   console.log('User1:' + words[P1] + '  User2:' + words[P2])
-  // if (P1 === P2) {console.log('Tie!')}
-  // else if (P1 === 0 & P2 === 2) {console.log('User1 Wins')}
-  // else if (P1 === 1 & P2 === 0) {console.log('User1 Wins')}
-  // else if (P1 === 2 & P2 === 1) {console.log('User1 Wins')}
-  // else if (P2 === 0 & P1 === 2) {console.log('User2 Wins')}
-  // else if (P2 === 1 & P1 === 0) {console.log('User2 Wins')}
-  // else if (P2 === 2 & P1 === 1) {console.log('User2 Wins')}
+//   if (P1 === P2) {console.log('Tie!')}
+//   else if (P1 === 0 & P2 === 2) {console.log('User1 Wins')}
+//   else if (P1 === 1 & P2 === 0) {console.log('User1 Wins')}
+//   else if (P1 === 2 & P2 === 1) {console.log('User1 Wins')}
+//   else if (P2 === 0 & P1 === 2) {console.log('User2 Wins')}
+//   else if (P2 === 1 & P1 === 0) {console.log('User2 Wins')}
+//   else if (P2 === 2 & P1 === 1) {console.log('User2 Wins')}
 // }
 
 // PlayGame('rock','rock')
